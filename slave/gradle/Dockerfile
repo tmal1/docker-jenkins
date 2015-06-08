@@ -1,6 +1,6 @@
 FROM oberthur/jenkins-slave-base:1.5.0_1.23
 
-ENV GRADLE_VERSION 2.3
+ENV GRADLE_VERSION 2.4
 ENV GRADLE_HOME /usr/share/gradle
 
 RUN curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip > /usr/share/gradle-$GRADLE_VERSION-all.zip \
