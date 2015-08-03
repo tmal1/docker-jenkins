@@ -1,4 +1,4 @@
-FROM oberthur/jenkins-slave-base:1.5.0_1.23
+FROM oberthur/jenkins-slave-base:2.0
 
 # Make sure the package repository is up to date.
 RUN apt-get update \
