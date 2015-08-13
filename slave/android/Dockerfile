@@ -33,4 +33,5 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
   && unzip /opt/gradle-$GRADLE_VERSION-bin.zip -d /opt \
   && rm /opt/gradle-$GRADLE_VERSION-bin.zip \
   && apt-get update \
-  && apt-get install -y libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1
+  && apt-get install -y libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 \
+  && chmod -R 777 /opt/jenkins-slave/.android
