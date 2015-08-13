@@ -22,7 +22,7 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
   && tar xzvf ./android-sdk_r24.3.3-linux.tgz \
   && rm android-sdk_r24.3.3-linux.tgz \
   && chmod -R 755 $ANDROID_HOME \
-  && echo "y" | android update sdk --force --no-ui --all --filter platform-tools,build-tools-21.0.1,android-$ANDROID_VERSION,addon-google_apis-google-$ANDROID_VERSION,sys-img-x86-addon-google_apis-google-$ANDROID_VERSION,source-$ANDROID_VERSION,extra-android-m2repository,extra-google-m2repository \
+  && echo "y" | android update sdk --force --no-ui --all --filter platform-tools,build-tools-$ANDROID_VERSION.0.1,android-$ANDROID_VERSION,addon-google_apis-google-$ANDROID_VERSION,sys-img-x86-addon-google_apis-google-$ANDROID_VERSION,source-$ANDROID_VERSION,extra-android-m2repository,extra-google-m2repository \
   && mkdir -p /opt/android-sdk-linux/build-tools \
   && cd /opt/android-sdk-linux/build-tools \
   && wget --progress=dot:giga https://dl.google.com/android/repository/build-tools_r22.0.1-linux.zip \
