@@ -30,6 +30,8 @@ RUN mkdir -p /opt/jenkins-slave \
     && useradd -u 500 jenkins-slave -U -s /bin/false \
     && usermod -a -G 998 jenkins-slave \
     && usermod -a -G 999 jenkins-slave \
-    && chown -R jenkins-slave:jenkins-slave /opt/
+    && chown -R jenkins-slave:jenkins-slave /opt/ \
+    && mkdir -p /home/jenkins-slave \
+    && chown -R jenkins-slave:jenkins-slave /home/jenkins-slave
 
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
