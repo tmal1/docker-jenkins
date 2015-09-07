@@ -1,6 +1,7 @@
 FROM oberthur/jenkins-slave-base:2.0
 
 ENV DOCKER_VERSION 1.7.1
+ENV ANSIBLE_HOST_KEY_CHECKING False
 
 # Add docker
 RUN apt-get update && apt-get install -y apt-transport-https \
