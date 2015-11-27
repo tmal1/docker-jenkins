@@ -1,4 +1,4 @@
-FROM oberthur/jenkins-slave-base:2.0
+FROM oberthur/jenkins-slave-base:2.0.1
 
 MAINTAINER Kacper Piechota <k.piechota@oberthur.com>
 
