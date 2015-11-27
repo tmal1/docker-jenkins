@@ -1,4 +1,4 @@
-FROM oberthur/jenkins-slave-base:2.0
+FROM oberthur/jenkins-slave-base:2.0.1
 
 ENV DOCKER_VERSION 1.7.1
 ENV ANSIBLE_HOST_KEY_CHECKING False

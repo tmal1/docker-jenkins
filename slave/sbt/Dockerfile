@@ -1,4 +1,4 @@
-FROM oberthur/jenkins-slave-base:2.0
+FROM oberthur/jenkins-slave-base:2.0.1
 
 ENV SBT_VERSION 0.13.9
 ENV SBT_HOME /usr/share/sbt
