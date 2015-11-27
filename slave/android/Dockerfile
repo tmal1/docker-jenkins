@@ -13,7 +13,9 @@ ENV GRADLE_HOME /opt/gradle-2.5
 
 ENV PATH $GRADLE_HOME/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
-RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+RUN apt-get update \
+  && apt-get install -y unzip libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 \
+  && curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
   && curl -LO https://dl.google.com/android/android-sdk_r24.3.3-linux.tgz \
@@ -32,6 +34,7 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
   && mv gradle-$GRADLE_VERSION-bin.zip /opt/. \
   && unzip /opt/gradle-$GRADLE_VERSION-bin.zip -d /opt \
   && rm /opt/gradle-$GRADLE_VERSION-bin.zip \
-  && apt-get update \
-  && apt-get install -y libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 \
-  && chmod -R 777 /opt/jenkins-slave/.android
+  && chmod -R 777 /opt/jenkins-slave/.android \
+  && apt-get purge -y unzip \
+  && apt-get clean \
+  && apt-get -y autoremove
