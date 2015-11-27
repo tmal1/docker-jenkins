@@ -1,8 +1,8 @@
-FROM oberthur/docker-ubuntu-java:jdk8_8.51.16
+FROM oberthur/docker-ubuntu-java:jdk8_8.65.17
 
 MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
-ENV JENKINS_VERSION 1.609.2
+ENV JENKINS_VERSION 1.625.2
 
 RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add - \
     && sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' \
