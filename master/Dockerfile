@@ -4,7 +4,7 @@ MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
 ENV JENKINS_VERSION 1.625.2
 
-RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add - \
+RUN curl -L https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add - \
     && sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' \
     && apt-get update \
     && apt-get install -y jenkins=$JENKINS_VERSION supervisor \
