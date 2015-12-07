@@ -1,4 +1,4 @@
-FROM oberthur/jenkins-slave-base:2.0.1
+FROM oberthur/jenkins-slave-maven:2.0.1
 
 ENV NPM_CONFIG_LOGLEVEL info
 
