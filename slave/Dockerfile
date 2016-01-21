@@ -1,10 +1,10 @@
-FROM oberthur/docker-ubuntu-java:jdk8_8.65.17
+FROM oberthur/docker-ubuntu-java:jdk8_8.71.15
 
 MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
-ENV HOME /opt/jenkins-slave
-ENV _JAVA_OPTIONS=-Duser.home=/opt/jenkins-slave
-ENV SWARM_VERSION 2.0
+ENV HOME=/opt/jenkins-slave \
+    _JAVA_OPTIONS=-Duser.home=/opt/jenkins-slave \
+    SWARM_VERSION=2.0
 
 WORKDIR /opt/jenkins-slave
 
@@ -17,7 +17,7 @@ RUN mkdir -p /opt/jenkins-slave \
 
     # Make sure the package repository is up to date.
     && apt-get update \
-    && apt-get install -y git supervisor openssh-client unzip wget bzip2 \
+    && apt-get install -y git supervisor openssh-client unzip wget bzip2 git-flow \
 
     # clean all cache to clean space
     && rm -rf /var/lib/apt/lists/* \
