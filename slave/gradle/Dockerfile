@@ -1,7 +1,7 @@
-FROM oberthur/jenkins-slave-base:2.0.1
+FROM oberthur/jenkins-slave-base:2.0.2
 
-ENV GRADLE_VERSION 2.9
-ENV GRADLE_HOME /usr/share/gradle
+ENV GRADLE_VERSION=2.10 \
+    GRADLE_HOME=/usr/share/gradle
 
 RUN apt-get update \
     && apt-get install -y unzip \

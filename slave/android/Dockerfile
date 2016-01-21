@@ -1,16 +1,13 @@
-FROM oberthur/jenkins-slave-base:2.0.1
+FROM oberthur/jenkins-slave-base:2.0.2
 
 MAINTAINER Kacper Piechota <k.piechota@oberthur.com>
 
-ENV MAVEN_VERSION 3.2.3
-ENV MAVEN_HOME /usr/share/maven
-
-ENV ANDROID_VERSION 22
-ENV ANDROID_HOME /opt/android-sdk-linux/
-
-ENV GRADLE_VERSION 2.5
-ENV GRADLE_HOME /opt/gradle-2.5
-
+ENV MAVEN_VERSION=3.2.3 \
+    MAVEN_HOME=/usr/share/maven \
+    ANDROID_VERSION=22 \
+    ANDROID_HOME=/opt/android-sdk-linux/ \
+    GRADLE_VERSION=2.5 \
+    GRADLE_HOME=/opt/gradle-2.5
 ENV PATH $GRADLE_HOME/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
 RUN apt-get update \
