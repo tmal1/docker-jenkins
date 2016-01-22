@@ -27,7 +27,7 @@ RUN mkdir -p /opt/jenkins-slave \
     # add user jenkins-slave
     && groupadd -g 998 998 \
     && groupadd -g 999 999 \
-    && useradd -u 500 jenkins-slave -U -s /bin/false \
+    && useradd -u 500 jenkins-slave -U -s /bin/false -M -d /opt/jenkins-slave \
     && usermod -a -G 998 jenkins-slave \
     && usermod -a -G 999 jenkins-slave \
     && chown -R jenkins-slave:jenkins-slave /opt/ \
