@@ -8,4 +8,5 @@ RUN mkdir -p $SBT_HOME \
   && echo '#!/bin/bash\njava $SBT_OPTS -jar $SBT_HOME/sbt-launch.jar "$@"' > /usr/bin/sbt \
   && chmod a+x /usr/bin/sbt \
   && sbt exit \
+  && chown -R jenkins-slave:jenkins-slave /opt/jenkins-slave/
   && rm -fr /tmp/*
