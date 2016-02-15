@@ -17,7 +17,7 @@ RUN mkdir -p /opt/jenkins-slave \
 
     # Make sure the package repository is up to date.
     && apt-get update \
-    && apt-get install -y git supervisor openssh-client unzip wget bzip2 git-flow \
+    && apt-get install -y git supervisor openssh-client unzip wget bzip2 git-flow python-yaml \
 
     # clean all cache to clean space
     && rm -rf /var/lib/apt/lists/* \
