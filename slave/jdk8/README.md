@@ -1,5 +1,5 @@
-# Ubuntu Docker image with grunt
-Docker image to run grunt
+# Ubuntu Docker image with jenkins swarm
+Docker image to run docker compose
 
 # To run docker in docker you must add this volumes:
 - /var/run/docker.sock:/var/run/docker.sock
@@ -14,3 +14,4 @@ Docker image to run grunt
 - JENKINS_FS_ROOT - fs root (default empty)
 - JENKINS_EXEC_NR - executor number (default 1)
 - JENKINS_MODE - normal or exclusive (default exclusive)
+
