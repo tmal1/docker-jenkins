@@ -16,7 +16,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && apt-get install -y git supervisor openssh-client unzip wget bzip2 gitstats  \
 
   # Install ruby deps
-  && apt-get -y install ruby2.1 libmysqlclient18 build-essential \
+  && apt-get -y install ruby2.1 libmysqlclient18 build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev \
   && gem install bundler --no-ri --no-rdoc \
 
   # clean all cache to clean space
