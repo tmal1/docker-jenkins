@@ -2,7 +2,7 @@ FROM oberthur/docker-ubuntu-java:jdk8_8.74.02
 
 MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
-ENV JENKINS_VERSION 1.642.2
+ENV JENKINS_VERSION 1.642.3
 
 RUN curl -L https://jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add - \
     && sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' \
