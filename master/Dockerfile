@@ -4,7 +4,7 @@ MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
 ENV JENKINS_VERSION 1.642.4
 
-RUN && mkdir -p /var/lib/jenkins/ /usr/share/jenkins/ /var/cache/jenkins/war/ /var/log/jenkins/ \
+RUN mkdir -p /var/lib/jenkins/ /usr/share/jenkins/ /var/cache/jenkins/war/ /var/log/jenkins/ \
     && curl -o /usr/share/jenkins/jenkins.war http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war -L \
     && groupadd -g 999 app \
     && useradd -u 999 app -g app -s /bin/false -M -d /var/lib/jenkins \
