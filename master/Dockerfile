@@ -9,7 +9,7 @@ RUN mkdir -p /var/lib/jenkins/ /usr/share/jenkins/ /var/cache/jenkins/war/ /var/
     && groupadd -g 999 app \
     && useradd -u 999 app -g app -s /bin/false -M -d /var/lib/jenkins \
     && apt-get update \
-    && apt-get install -y supervisor \
+    && apt-get install -y supervisor git \
     # clean all cache to clean space
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean \
