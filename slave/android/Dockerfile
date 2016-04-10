@@ -3,7 +3,7 @@ FROM oberthur/docker-ubuntu-java:jdk8_8.77.03
 ENV SWARM_VERSION=2.0 \
   GRADLE_VERSION=2.2 \
   MAVEN_VERSION=3.3.9 \
-  ANDROID_BUILD_TOOLS_VERSION=22.0.1 \
+  ANDROID_VERSION=22 \
   ANDROID_SDK_VERSION=24.3.3 \
   GRADLE_HOME=/usr/share/gradle \
   MAVEN_HOME=/usr/share/maven \
@@ -40,7 +40,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && curl -o /opt/android-sdk_r$ANDROID_SDK_VERSION-linux.tgz -L https://dl.google.com/android/android-sdk_r$ANDROID_SDK_VERSION-linux.tgz \
   && cd /opt && tar xzvf ./android-sdk_r$ANDROID_SDK_VERSION-linux.tgz \
   && rm android-sdk_r$ANDROID_SDK_VERSION-linux.tgz \
-  && echo "y" | android update sdk --force --no-ui --all --filter platform-tools,build-tools-$ANDROID_BUILD_TOOLS_VERSION,android-$ANDROID_VERSION,addon-google_apis-google-$ANDROID_VERSION,sys-img-x86-addon-google_apis-google-$ANDROID_VERSION,source-$ANDROID_VERSION,extra-android-m2repository,extra-google-m2repository \
+  && echo "y" | android update sdk --force --no-ui --all --filter platform-tools,build-tools-$ANDROID_VERSION.0.1,android-$ANDROID_VERSION,addon-google_apis-google-$ANDROID_VERSION,sys-img-x86-addon-google_apis-google-$ANDROID_VERSION,source-$ANDROID_VERSION,extra-android-m2repository,extra-google-m2repository \
   && mkdir -p /opt/android-sdk-linux/build-tools \
   && cd /opt/android-sdk-linux/build-tools \
 
