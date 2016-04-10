@@ -45,9 +45,9 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && cd /opt/android-sdk-linux/build-tools \
 
   # install android build tools
-  && cd /opt && curl -LO https://dl.google.com/android/repository/build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip \
-  && unzip build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip \
-  && rm build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip \
+  && cd /opt && curl -LO https://dl.google.com/android/repository/build-tools_r$ANDROID_VERSION-linux.zip \
+  && unzip build-tools_r$ANDROID_VERSION-linux.zip \
+  && rm build-tools_r$ANDROID_VERSION-linux.zip \
 
   # clean all cache to clean space
   && apt-get purge -y unzip \
