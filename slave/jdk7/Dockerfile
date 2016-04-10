@@ -1,4 +1,4 @@
-FROM oberthur/docker-ubuntu-java:jdk7_7.79.15
+FROM oberthur/docker-ubuntu-java:jdk7_7.80.15
 
 ENV SWARM_VERSION=2.0 \
   GRADLE_VERSION=2.10 \
