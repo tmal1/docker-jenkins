@@ -1,8 +1,8 @@
 FROM oberthur/docker-ubuntu-java:jdk8_8.77.03
 
 ENV SWARM_VERSION=2.0 \
-  GRADLE_VERSION=2.10 \
-  MAVEN_VERSION=3.3.3 \
+  GRADLE_VERSION=2.12 \
+  MAVEN_VERSION=3.3.9 \
   ANDROID_BUILD_TOOLS_VERSION=22.0.1 \
   ANDROID_SDK_VERSION=24.3.3 \
   GRADLE_HOME=/usr/share/gradle \
@@ -29,7 +29,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && ln -s /usr/share/gradle/bin/gradle /usr/bin/gradle \
 
   # install maven
-  && curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+  && curl -fsSL http://apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
 

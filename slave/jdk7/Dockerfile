@@ -1,9 +1,9 @@
 FROM oberthur/docker-ubuntu-java:jdk7_7.80.15
 
 ENV SWARM_VERSION=2.0 \
-  GRADLE_VERSION=2.10 \
+  GRADLE_VERSION=2.12 \
   SBT_VERSION=0.13.9 \
-  MAVEN_VERSION=3.3.3 \
+  MAVEN_VERSION=3.3.9 \
   GRADLE_HOME=/usr/share/gradle \
   SBT_HOME=/usr/share/sbt \
   MAVEN_HOME=/usr/share/maven \
@@ -36,7 +36,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && apt-get -y autoremove \
 
   # install maven
-  && curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+  && curl -fsSL http://apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
 
