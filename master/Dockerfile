@@ -13,7 +13,7 @@ RUN mkdir -p /var/lib/jenkins/ /usr/share/jenkins/ /var/cache/jenkins/war/ /var/
     # clean all cache to clean space
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean \
-    && echo '#!/bin/bash -x\n\njava -Xms${JVM_MINIMUM_MEMORY:=1024m} -Xmx${JVM_MAXIMUM_MEMORY:=2048m} ${JAVA_OPTS} -Djava.awt.headless=true -DJENKINS_HOME=/var/lib/jenkins -jar /usr/share/jenkins/jenkins.war --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war --httpPort=${JENKINS_PORT:-8080} --prefix=${JENKINS_PREFIX:-/jenkins}' > /usr/bin/jenkins_master.sh \
+    && echo '#!/bin/bash -x\n\nexec java -Xms${JVM_MINIMUM_MEMORY:=1024m} -Xmx${JVM_MAXIMUM_MEMORY:=2048m} ${JAVA_OPTS} -Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP="sandbox\;"-DJENKINS_HOME=/var/lib/jenkins -jar /usr/share/jenkins/jenkins.war --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war --httpPort=${JENKINS_PORT:-8080} --prefix=${JENKINS_PREFIX:-/jenkins}' > /usr/bin/jenkins_master.sh \
     && chmod 755 /usr/bin/jenkins_master.sh && echo "[program:jenkins-master]\ncommand=/usr/bin/jenkins_master.sh\nuser=app" > /etc/supervisor/conf.d/supervisor.conf \
     && chown app:app /var/lib/jenkins /usr/share/jenkins/ /var/cache/jenkins/war/
 
