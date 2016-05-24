@@ -18,11 +18,13 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
 
   # Make sure the package repository is up to date.
   && apt-get update \
-  && apt-get install -y git supervisor openssh-client unzip wget bzip2 nodejs npm gitstats python-yaml \
+  && apt-get install -y git supervisor openssh-client unzip wget bzip2 nodejs npm gitstats python-yaml python-pip \
   && npm install npm -g \
   && npm install -g bower \
   && ln -s /usr/bin/nodejs /usr/bin/node \
 
+  #install cqlsh
+  && pip install cqlsh \
   # install gradle 
   && curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip > /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && unzip -d /usr/share/ /usr/share/gradle-$GRADLE_VERSION-all.zip \
