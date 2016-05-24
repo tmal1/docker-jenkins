@@ -18,4 +18,4 @@ Then the changes should be merged to _master_ - _master_ branch should always co
 
 Upgrades to should be done in _develop_ branch and merged when stable to the _master_ branch.
 
-Jenkins version: 1.642.4
+Jenkins version: 1.651.1

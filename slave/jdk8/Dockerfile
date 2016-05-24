@@ -1,4 +1,4 @@
-FROM oberthur/docker-ubuntu-java:jdk8_8.77.03
+FROM oberthur/docker-ubuntu-java:jdk8_8.91.14
 
 ENV SWARM_VERSION=2.0 \
   GRADLE_VERSION=2.12 \
@@ -11,18 +11,20 @@ ENV SWARM_VERSION=2.0 \
   _JAVA_OPTIONS="-Dsbt.log.noformat=true"
 
 RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar \
-  && echo '#!/bin/bash -x\n\njava -jar /opt/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
+  && echo '#!/bin/bash\n\nexec java -jar /opt/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
   && chmod +x /usr/bin/swarm_slave.sh \
   && mkdir -p /etc/supervisor/conf.d \
   && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root" > /etc/supervisor/conf.d/supervisor.conf \
 
   # Make sure the package repository is up to date.
   && apt-get update \
-  && apt-get install -y git supervisor openssh-client unzip wget bzip2 nodejs npm gitstats python-yaml \
+  && apt-get install -y git supervisor openssh-client unzip wget bzip2 nodejs npm gitstats python-yaml python-pip \
   && npm install npm -g \
   && npm install -g bower \
   && ln -s /usr/bin/nodejs /usr/bin/node \
 
+  #install cqlsh
+  && pip install cqlsh \
   # install gradle 
   && curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip > /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && unzip -d /usr/share/ /usr/share/gradle-$GRADLE_VERSION-all.zip \
