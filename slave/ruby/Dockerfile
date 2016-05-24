@@ -20,7 +20,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
 
   # Make sure the package repository is up to date.
   && apt-get update \
-  && apt-get install -y git supervisor openssh-client unzip wget bzip2 gitstats python-yaml libyaml-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev \
+  && apt-get install -y git supervisor openssh-client zip unzip wget bzip2 gitstats python-yaml libyaml-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev \
 
   # Install ruby deps
   && apt-get -y install ruby2.1 libmysqlclient18 build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
