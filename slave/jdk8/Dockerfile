@@ -16,15 +16,19 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && mkdir -p /etc/supervisor/conf.d \
   && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root" > /etc/supervisor/conf.d/supervisor.conf \
 
+  #add cassandra repo
+  && echo "deb http://debian.datastax.com/community stable main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list \
+  && curl -L http://debian.datastax.com/debian/repo_key | apt-key add - \
+  
+
   # Make sure the package repository is up to date.
   && apt-get update \
-  && apt-get install -y git supervisor openssh-client unzip wget bzip2 nodejs npm gitstats python-yaml python-pip \
+  && apt-get install -y git supervisor openssh-client unzip wget bzip2 nodejs npm gitstats python-yaml cassandra-tools  \
   && npm install npm -g \
   && npm install -g bower \
   && ln -s /usr/bin/nodejs /usr/bin/node \
 
-  #install cqlsh
-  && pip install cqlsh \
+  
   # install gradle 
   && curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip > /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && unzip -d /usr/share/ /usr/share/gradle-$GRADLE_VERSION-all.zip \
