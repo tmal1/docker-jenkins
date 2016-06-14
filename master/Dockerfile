@@ -2,7 +2,7 @@ FROM oberthur/docker-ubuntu-java:jdk8_8.91.14
 
 MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
-ENV JENKINS_VERSION 1.651.2
+ENV JENKINS_VERSION 1.651.3
 
 RUN mkdir -p /var/lib/jenkins/ /usr/share/jenkins/ /var/cache/jenkins/war/ /var/log/jenkins/ \
     && curl -o /usr/share/jenkins/jenkins.war http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war -L \
