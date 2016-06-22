@@ -2,7 +2,9 @@ FROM oberthur/docker-ubuntu-java:jdk8_8.91.14
 
 ENV SWARM_VERSION=2.0 \
   ANT_VERSION=1.9.4 \
-  ANT_HOME=/usr/share/ant
+  ANT_HOME=/usr/share/ant \
+  PHANTOMJS_VERSION=2.1.1 \
+  PHANTOMJS_PLATFORM=linux-x86_64
 
 # Add external repository
 RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental
@@ -17,6 +19,10 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && curl -fsSL http://archive.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-ant-$ANT_VERSION /usr/share/ant \
   && ln -s /usr/share/ant/bin/ant /usr/bin/ant \
+
+  && mkdir -p /opt/phantomjs \
+  && curl -fsSL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-${PHANTOMJS_PLATFORM}.tar.bz2 | tar xjf - -C /opt/phantomjs --strip 1 \
+  && ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs \
 
   # Make sure the package repository is up to date.
   && apt-get update \
