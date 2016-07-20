@@ -19,7 +19,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
 
   # Make sure the package repository is up to date.
   && apt-get update \
-  && apt-get install -y git supervisor openssh-client zip unzip wget bzip2 python-yaml \
+  && apt-get install -y git supervisor openssh-client zip unzip wget bzip2 python-yaml rsync \
 
   # install gradle 
   && curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip > /usr/share/gradle-$GRADLE_VERSION-all.zip \
