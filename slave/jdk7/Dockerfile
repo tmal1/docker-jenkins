@@ -1,6 +1,6 @@
 FROM oberthur/docker-ubuntu-java:jdk7_7.80.15
 
-ENV SWARM_VERSION=2.0 \
+ENV SWARM_VERSION=2.1 \
   GRADLE_VERSION=2.12 \
   SBT_VERSION=0.13.9 \
   MAVEN_VERSION=3.3.9 \
