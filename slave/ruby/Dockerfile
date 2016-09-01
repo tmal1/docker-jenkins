@@ -1,6 +1,6 @@
 FROM oberthur/docker-ubuntu-java:jdk8_8.91.14
 
-ENV SWARM_VERSION=2.1 \
+ENV SWARM_VERSION=2.2 \
   ANT_VERSION=1.9.4 \
   ANT_HOME=/usr/share/ant \
   PHANTOMJS_VERSION=2.1.1 \

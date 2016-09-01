@@ -1,8 +1,8 @@
 FROM oberthur/docker-ubuntu-java:jdk7_7.80.15
 
-ENV SWARM_VERSION=2.1 \
-  GRADLE_VERSION=2.12 \
-  SBT_VERSION=0.13.9 \
+ENV SWARM_VERSION=2.2 \
+  GRADLE_VERSION=2.14.1 \
+  SBT_VERSION=0.13.12 \
   MAVEN_VERSION=3.3.9 \
   GRADLE_HOME=/usr/share/gradle \
   SBT_HOME=/usr/share/sbt \
@@ -18,7 +18,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
 
   # Make sure the package repository is up to date.
   && apt-get update \
-  && apt-get install -y git supervisor openssh-client zip unzip wget bzip2 nodejs npm gitstats python-yaml rsync \
+  && apt-get install -y git supervisor openssh-client zip unzip wget bzip2 nodejs npm gitstats python-yaml python-jinja2 rsync \
   && npm install npm -g \
   && npm install -g bower \
   && ln -s /usr/bin/nodejs /usr/bin/node \
