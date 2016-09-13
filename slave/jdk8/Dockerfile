@@ -34,6 +34,9 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && ln -s /usr/share/gradle-$GRADLE_VERSION /usr/share/gradle \
   && rm /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && ln -s /usr/share/gradle/bin/gradle /usr/bin/gradle \
+  
+  # adding RSYNC MC
+  && apt-get install -y mc rsync \
 
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
