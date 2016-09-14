@@ -46,6 +46,11 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && echo '#!/bin/bash\njava $SBT_OPTS -jar $SBT_HOME/sbt-launch.jar "$@"' > /usr/bin/sbt \
   && chmod a+x /usr/bin/sbt \
   && sbt exit \
-  && rm -fr /tmp/*
+  && rm -fr /tmp/* \
+
+  # install git flow
+  && wget --no-check-certificate -q https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh \
+  && bash gitflow-installer.sh install stable \
+  && rm gitflow-installer.sh
 
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
