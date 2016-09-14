@@ -27,7 +27,6 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && npm install -g bower \
   && ln -s /usr/bin/nodejs /usr/bin/node \
 
-  
   # install gradle 
   && curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip > /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && unzip -d /usr/share/ /usr/share/gradle-$GRADLE_VERSION-all.zip \
@@ -54,6 +53,10 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && echo '#!/bin/bash\njava $SBT_OPTS -jar $SBT_HOME/sbt-launch.jar "$@"' > /usr/bin/sbt \
   && chmod a+x /usr/bin/sbt \
   && sbt exit \
-  && rm -fr /tmp/*
+  && rm -fr /tmp/* \
+
+  # install git flow
+  && wget --no-check-certificate -q https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh \
+  && bash gitflow-installer.sh install stable; rm gitflow-installer.sh
 
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
