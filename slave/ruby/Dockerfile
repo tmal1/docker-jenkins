@@ -31,6 +31,8 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   # Install ruby deps
   && apt-get -y install ruby2.1 libmysqlclient18 nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
   && gem install bundler --no-ri --no-rdoc \
+  # and some common things like make and gcc  
+  && gcc perl  make g++ \
 
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
