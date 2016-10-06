@@ -4,7 +4,8 @@ ENV SWARM_VERSION=2.2 \
   ANT_VERSION=1.9.4 \
   ANT_HOME=/usr/share/ant \
   PHANTOMJS_VERSION=2.1.1 \
-  PHANTOMJS_PLATFORM=linux-x86_64
+  PHANTOMJS_PLATFORM=linux-x86_64 \
+  PATH=~/.rbenv/bin:$PATH
 
 # Add external repository
 RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental
@@ -32,12 +33,21 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && apt-get -y install ruby2.1 libmysqlclient18 nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
   && gem install bundler --no-ri --no-rdoc \
 
-  # Install some common things like make and gcc  
+  # Install some common things like make and gcc
   && apt-get -y install gcc perl make g++ \
 
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean \
-  && apt-get -y autoremove
+  && apt-get -y autoremove \
+
+  # install rbenv and ruby-build to manage ruby versions
+  && git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
+  && git clone https://github.com/rbenv/ruby-build ~/.rbenv/plugins/ruby-build \
+  && git clone https://github.com/rbenv/rbenv-default-gems ~/.rbenv/plugins/rbenv-default-gems \
+  && echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh \
+  && echo 'eval "$(rbenv init -)"' >> .bashrc \
+  && echo 'gem: --no-rdoc --no-ri' >> /.gemrc \
+  && echo 'bundler\nrake' > ~/.rbenv/default-gems
 
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
