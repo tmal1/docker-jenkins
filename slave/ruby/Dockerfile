@@ -21,16 +21,16 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && mv /usr/share/apache-ant-$ANT_VERSION /usr/share/ant \
   && ln -s /usr/share/ant/bin/ant /usr/bin/ant \
 
-  && mkdir -p /opt/phantomjs \
-  && curl -fsSL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-${PHANTOMJS_PLATFORM}.tar.bz2 | tar xjf - -C /opt/phantomjs --strip 1 \
-  && ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs \
-
   # Make sure the package repository is up to date.
   && apt-get update \
   && apt-get install -y git supervisor openssh-client zip unzip wget bzip2 gitstats python-yaml libyaml-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev rsync \
 
+  && mkdir -p /opt/phantomjs \
+  && curl -fsSL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-${PHANTOMJS_PLATFORM}.tar.bz2 | tar xjf - -C /opt/phantomjs --strip 1 \
+  && ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs \
+
   # Install ruby deps
-  && apt-get -y install ruby2.1 libmysqlclient18 nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
+  && apt-get -y install ruby2.1 nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
   && gem install bundler --no-ri --no-rdoc \
 
   # Install some common things like make and gcc
