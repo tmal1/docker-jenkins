@@ -8,7 +8,8 @@ ENV SWARM_VERSION=2.2 \
   PATH=~/.rbenv/bin:$PATH
 
 # Add external repository
-RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental
+RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental \
+  && add-apt-repository -y ppa:openjdk-r/ppa 
 
 RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar \
   && echo '#!/bin/bash\n\nexec java -jar /opt/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
@@ -35,6 +36,9 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
 
   # Install some common things like make and gcc
   && apt-get -y install gcc perl make g++ \
+
+  # Add SIM deps
+  && apt-get -y install gcc-4.8-base lib32gcc-4.8-dev gcc-4.9-base lib32gcc-4.9-dev omniidl openjdk-7-jdk \
 
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
