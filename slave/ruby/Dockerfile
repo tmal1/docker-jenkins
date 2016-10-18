@@ -8,10 +8,10 @@ ENV SWARM_VERSION=2.2 \
   PATH=~/.rbenv/bin:$PATH
 
 # Add external repository
-RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental \
-  && add-apt-repository -y ppa:openjdk-r/ppa 
+RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental
 
-RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar \
+RUN curl -Lo /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar \
+
   && echo '#!/bin/bash\n\nexec java -jar /opt/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
   && chmod +x /usr/bin/swarm_slave.sh \
   && mkdir -p /etc/supervisor/conf.d \
@@ -31,14 +31,11 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs \
 
   # Install ruby deps
-  && apt-get -y install ruby2.1 ruby2.1-dev ruby2.2-dev nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
+  && apt-get -y install ruby2.1 ruby2.1-dev ruby2.2-dev nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev libmysqlclient20 \
   && gem install bundler --no-ri --no-rdoc \
 
   # Install some common things like make and gcc
   && apt-get -y install gcc perl make g++ \
-
-  # Add SIM deps
-  && apt-get -y install gcc-4.8-base lib32gcc-4.8-dev gcc-4.9-base lib32gcc-4.9-dev omniidl openjdk-7-jdk \
 
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
