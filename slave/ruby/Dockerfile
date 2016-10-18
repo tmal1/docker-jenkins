@@ -31,7 +31,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs \
 
   # Install ruby deps
-  && apt-get -y install ruby2.1 nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
+  && apt-get -y install ruby2.1 ruby2.1-dev ruby2.2-dev nodejs build-essential libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libmysqlclient-dev bundler libgmp3-dev \
   && gem install bundler --no-ri --no-rdoc \
 
   # Install some common things like make and gcc
