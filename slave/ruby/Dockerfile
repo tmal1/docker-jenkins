@@ -1,4 +1,4 @@
-FROM oberthur/docker-ubuntu-java:jdk8_8.102.14
+FROM oberthur/docker-ubuntu-java:jdk8_8.112.15
 
 ENV SWARM_VERSION=2.2 \
   ANT_VERSION=1.9.4 \
