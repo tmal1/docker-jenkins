@@ -10,7 +10,7 @@ Docker image to run docker compose
 - JENKINS_PASSWORD - password (default empty)
 - JENKINS_SLAVE_NAME - slave name (default swarm)
 - JENKINS_URL - jenkins url (default 127.0.0.1)
-- JENKINS_LABELS - slave label (default empty)
+- JENKINS_LABELS - slave label (default swarm)
 - JENKINS_FS_ROOT - fs root (default empty)
 - JENKINS_EXEC_NR - executor number (default 1)
 - JENKINS_MODE - normal or exclusive (default exclusive)
