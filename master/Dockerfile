@@ -6,8 +6,7 @@ ENV JENKINS_VERSION 2.19.1
 
 RUN mkdir -p /var/lib/jenkins/ /usr/share/jenkins/ /var/cache/jenkins/war/ /var/log/jenkins/ \
     && curl -o /usr/share/jenkins/jenkins.war http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war -L \
-    && groupadd -g 999 app \
-    && useradd -u 999 app -g app -s /bin/false -M -d /var/lib/jenkins \
+    && usermod -s /bin/false -d /var/lib/jenkins app\
     && apt-get update \
     && apt-get install -y supervisor git openssh-client \
     # clean all cache to clean space
