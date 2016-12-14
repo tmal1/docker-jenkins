@@ -23,7 +23,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && apt-get install -y git supervisor openssh-client zip unzip wget bzip2 nodejs npm gitstats python-yaml python-jinja2 rsync \
   && npm install npm -g \
   && npm install -g bower \
-  && npm install -g grunt-cli \
+  && rm /usr/local/bin/grunt && npm install -g grunt-cli \
   && ln -s /usr/bin/nodejs /usr/bin/node \
 
   # install gradle 
