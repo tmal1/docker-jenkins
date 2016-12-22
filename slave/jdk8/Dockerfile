@@ -37,6 +37,9 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   # adding RSYNC MC
   && apt-get install -y mc rsync \
 
+  # adding BUILD-TOOLS
+  && apt-get install -y build-essential \
+
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean \
