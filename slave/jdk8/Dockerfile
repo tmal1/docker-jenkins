@@ -8,7 +8,10 @@ ENV SWARM_VERSION=2.2 \
   SBT_HOME=/usr/share/sbt \
   MAVEN_HOME=/usr/share/maven \
   NPM_CONFIG_LOGLEVEL=info \
-  _JAVA_OPTIONS="-Dsbt.log.noformat=true"
+  _JAVA_OPTIONS="-Dsbt.log.noformat=true" \
+  DOCKER_PATH=/opt/docker/bin
+
+ENV PATH $DOCKER_PATH:$PATH
 
 RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar \
   && echo '#!/bin/bash\n\nexec java -jar /opt/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
@@ -27,13 +30,13 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && npm install -g bower \
   && ln -s /usr/bin/nodejs /usr/bin/node \
 
-  # install gradle 
+  # install gradle
   && curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip > /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && unzip -d /usr/share/ /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && ln -s /usr/share/gradle-$GRADLE_VERSION /usr/share/gradle \
   && rm /usr/share/gradle-$GRADLE_VERSION-all.zip \
   && ln -s /usr/share/gradle/bin/gradle /usr/bin/gradle \
-  
+
   # adding RSYNC MC
   && apt-get install -y mc rsync \
 
@@ -57,6 +60,9 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
 
   # install git flow
   && wget --no-check-certificate -q https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh \
-  && bash gitflow-installer.sh install stable; rm gitflow-installer.sh
+  && bash gitflow-installer.sh install stable; rm gitflow-installer.sh \
+
+  # update path
+  && mkdir -p $DOCKER_PATH 
 
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
