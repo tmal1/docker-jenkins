@@ -3,8 +3,8 @@ FROM oberthur/docker-ubuntu-java:jdk8_8.112.15
 ENV SWARM_VERSION=2.2 \
   GRADLE_VERSION=2.2 \
   MAVEN_VERSION=3.3.9 \
-  ANDROID_VERSION=22 \
-  ANDROID_SDK_VERSION=24.3.3 \
+  ANDROID_VERSION=25 \
+  ANDROID_SDK_VERSION=24.4.1 \
   GRADLE_HOME=/usr/share/gradle \
   MAVEN_HOME=/usr/share/maven \
   ANDROID_HOME=/opt/android-sdk-linux
