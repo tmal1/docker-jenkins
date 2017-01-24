@@ -4,6 +4,8 @@ ENV SWARM_VERSION=2.2 \
   GRADLE_VERSION=2.14.1 \
   SBT_VERSION=0.13.12 \
   MAVEN_VERSION=3.3.9 \
+  ANT_VERSION=1.9.6 \
+  ANT_HOME=/usr/share/ant \
   GRADLE_HOME=/usr/share/gradle \
   SBT_HOME=/usr/share/sbt \
   MAVEN_HOME=/usr/share/maven \
@@ -11,15 +13,15 @@ ENV SWARM_VERSION=2.2 \
   _JAVA_OPTIONS="-Dsbt.log.noformat=true" \
   DOCKER_PATH=/opt/docker/bin
 
-ENV PATH $DOCKER_PATH:$PATH
+ENV PATH="$PATH:$DOCKER_PATH"
 
 RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar \
   && echo '#!/bin/bash\n\nexec java -jar /opt/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
   && chmod +x /usr/bin/swarm_slave.sh \
   && mkdir -p /etc/supervisor/conf.d \
-  && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root" > /etc/supervisor/conf.d/supervisor.conf \
+  && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root\n\n[program:docker-in-docker]\ncommand=/usr/bin/docker-in-docker.sh\nuser=root" > /etc/supervisor/conf.d/supervisor.conf \
 
-  #add cassandra repo
+  # add cassandra repo
   && echo "deb http://debian.datastax.com/community stable main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list \
   && curl -L http://debian.datastax.com/debian/repo_key | apt-key add - \
 
@@ -43,6 +45,11 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   # adding BUILD-TOOLS
   && apt-get install -y build-essential \
 
+  # adding docker-in-docker
+  && mkdir -p $DOCKER_PATH \
+  && apt-get install -y iptables kmod libnfnetlink0 module-init-tools \
+  && echo "#!/bin/bash\n/bin/true" > /usr/bin/docker-in-docker.sh \
+
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean \
@@ -52,6 +59,11 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && curl -fsSL http://apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
+
+  # install ant
+  && curl -fsSL http://archive.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+  && mv /usr/share/apache-ant-$ANT_VERSION /usr/share/ant \
+  && ln -s /usr/share/ant/bin/ant /usr/bin/ant \
 
   # install sbt
   && mkdir -p $SBT_HOME \
@@ -63,9 +75,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
 
   # install git flow
   && wget --no-check-certificate -q https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh \
-  && bash gitflow-installer.sh install stable; rm gitflow-installer.sh \
-
-  # update path
-  && mkdir -p $DOCKER_PATH 
+  && bash gitflow-installer.sh install stable \
+  && rm gitflow-installer.sh
 
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]

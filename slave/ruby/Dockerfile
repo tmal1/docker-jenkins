@@ -4,8 +4,9 @@ ENV SWARM_VERSION=2.2 \
   ANT_VERSION=1.9.4 \
   ANT_HOME=/usr/share/ant \
   PHANTOMJS_VERSION=2.1.1 \
-  PHANTOMJS_PLATFORM=linux-x86_64 \
-  PATH=~/.rbenv/bin:$PATH
+  PHANTOMJS_PLATFORM=linux-x86_64
+
+ENV PATH="$PATH:$DOCKER_PATH:$HOME/.rbenv/bin"
 
 # Add external repository
 RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental
@@ -36,6 +37,10 @@ RUN curl -Lo /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http:/
 
   # Install some common things like make and gcc
   && apt-get -y install gcc perl make g++ \
+
+  # update path
+  && mkdir -p $DOCKER_PATH \
+  && apt-get install -y iptables kmod libnfnetlink0 module-init-tools \
 
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
