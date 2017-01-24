@@ -19,7 +19,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && echo '#!/bin/bash\n\nexec java -jar /opt/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
   && chmod +x /usr/bin/swarm_slave.sh \
   && mkdir -p /etc/supervisor/conf.d \
-  && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root\n\n[program:docker-in-docker]\ncommand=/usr/bin/docker-in-docker.sh\nuser=root" > /etc/supervisor/conf.d/supervisor.conf \
+  && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root\n\n[program:docker-in-docker]\ncommand=$DOCKER_PATH/docker-in-docker.sh\nuser=root" > /etc/supervisor/conf.d/supervisor.conf \
 
   # add cassandra repo
   && echo "deb http://debian.datastax.com/community stable main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list \
@@ -48,7 +48,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   # adding docker-in-docker
   && mkdir -p $DOCKER_PATH \
   && apt-get install -y iptables kmod libnfnetlink0 module-init-tools \
-  && echo "#!/bin/bash\n/bin/true" > /usr/bin/docker-in-docker.sh \
+  && echo "#!/bin/bash\n/bin/true" > $DOCKER_PATH/docker-in-docker.sh \
 
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
