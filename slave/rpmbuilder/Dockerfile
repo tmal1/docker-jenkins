@@ -14,9 +14,8 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && mkdir -p /etc/supervisor/conf.d \
   && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root\n\n[program:socat-slave]\ncommand=/usr/bin/socat_slave.sh\nuser=root" > /etc/supervisor/conf.d/supervisor.conf \
 
-  && yum install -y yum-plugin-ovl \
   && yum update \
-  && yum install -y kernel-2.6.32-696.1.1.el6.i686 kernel-headers-2.6.32-696.1.1.el6.i686 kernel-devel-2.6.32-696.1.1.el6.i686 rpmdevtools supervisor \
+  && yum install -y yum-plugin-ovl kernel-2.6.32-696.1.1.el6.i686 kernel-headers-2.6.32-696.1.1.el6.i686 kernel-devel-2.6.32-696.1.1.el6.i686 rpmdevtools supervisor \
   && rpmdev-setuptree \
 
 # clean all cache to clean space \
