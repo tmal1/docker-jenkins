@@ -19,6 +19,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && easy_install supervisor \
   && mkdir -p /etc/supervisord/conf.d \
   && echo_supervisord_conf > /etc/supervisord/supervisord.conf \
+  && echo -e "\n[program:linux32]\ncommand=linux32" >>  /etc/supervisord/supervisord.conf \
   && echo -e "\n[include]\nfiles = /etc/supervisord/conf.d/*.ini" >>  /etc/supervisord/supervisord.conf \
   && echo -e "[program:swarm_slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root" > /etc/supervisord/conf.d/supervisor.ini \
 
