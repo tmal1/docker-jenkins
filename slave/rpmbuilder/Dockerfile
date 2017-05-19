@@ -3,8 +3,11 @@ FROM oberthur/docker-centos_i386-gcc
 LABEL author="Tomasz Malinowski <t.malinowski@oberthur.com>"
 LABEL type="docker-centos_i386-rpmbuilder"
 
-ENV SWARM_VERSION=2.2 \
-    KERNEL_VERSION=2.6.32-696.1.1.el6.i686
+ENV SWARM_VERSION 2.2
+ENV KERNEL_VERSION 2.6.32-696.1.1.el6.i686
+ENV MACHINE i686
+ENV PROCESSOR i686
+ENV HW i386
 
 COPY rpmmacros /root/.rpmmacros
 COPY fakeuname.sh /usr/local/sbin/fakeuname.sh
@@ -19,7 +22,6 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && easy_install supervisor \
   && mkdir -p /etc/supervisord/conf.d \
   && echo_supervisord_conf > /etc/supervisord/supervisord.conf \
-  && echo -e "\n[program:linux32]\ncommand=linux32" >>  /etc/supervisord/supervisord.conf \
   && echo -e "\n[include]\nfiles = /etc/supervisord/conf.d/*.ini" >>  /etc/supervisord/supervisord.conf \
   && echo -e "[program:swarm_slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=root" > /etc/supervisord/conf.d/supervisor.ini \
 
