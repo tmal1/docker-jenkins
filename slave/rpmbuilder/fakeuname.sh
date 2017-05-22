@@ -6,9 +6,9 @@ kernel=$($uname -s)
 nodename=$($uname -n)
 kernel_rel=$KERNEL_VERSION
 kernel_ver=$($uname -v)
-machine=$MACHINE
-processor=$PROCESSOR
-hw=$HW
+machine=$($uname -m)
+processor=$($uname -p)
+hw=$($uname -i)
 os=$($uname -o)
 
 uname_output() {
