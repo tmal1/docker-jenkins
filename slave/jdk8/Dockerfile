@@ -50,6 +50,9 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && apt-get install -y iptables kmod libnfnetlink0 module-init-tools \
   && echo "#!/bin/bash\n/bin/true" > $DOCKER_PATH/docker-in-docker.sh \
 
+  #install protoc
+  && apt-get install -y protobuf-compiler=2.6.1* \
+
   # clean all cache to clean space
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean \
