@@ -15,7 +15,7 @@ RUN curl -o /opt/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar http://
   && chmod +x /usr/bin/swarm_slave.sh \
 
   && yum -y update \
-  && yum install -y yum-plugin-ovl python-setuptools kernel-$KERNEL_VERSION kernel-headers-$KERNEL_VERSION kernel-devel-$KERNEL_VERSION rpmdevtools \
+  && yum install -y yum-plugin-ovl python-setuptools python-devel kernel-$KERNEL_VERSION kernel-headers-$KERNEL_VERSION kernel-devel-$KERNEL_VERSION rpmdevtools \
 
   && easy_install supervisor \
   && mkdir -p /etc/supervisord/conf.d \
