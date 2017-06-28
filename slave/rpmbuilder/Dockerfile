@@ -4,7 +4,7 @@ LABEL author="Tomasz Malinowski <t.malinowski@oberthur.com>"
 LABEL type="docker-centos_i386-rpmbuilder"
 
 ENV SWARM_VERSION 2.2
-ENV KERNEL_VERSION 2.6.32-696.1.1.el6.i686
+ENV KERNEL_VERSION 2.6.32-696.3.2.el6.i686
 
 COPY rpmmacros /root/.rpmmacros
 COPY fakeuname.sh /usr/local/sbin/fakeuname.sh
